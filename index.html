@@ -1,52 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🔥 FAKE HACKING TERMINAL (FOR MOVIE EFFECTS) 🔥</title>
+    <title>Fake Hacking Simulator (For Fun)</title>
     <style>
         body {
-            background-color: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            margin: 0;
+            background-color: black;
+            color: lime;
+            font-family: monospace;
             padding: 20px;
             overflow: hidden;
         }
-        #terminal {
+        #hackTerminal {
             height: 80vh;
-            overflow-y: auto;
-            border: 1px solid #0f0;
+            overflow-y: scroll;
+            border: 1px solid lime;
             padding: 10px;
-            background: rgba(0, 20, 0, 0.2);
         }
         #inputLine {
             display: flex;
-            align-items: center;
-            margin-top: 10px;
         }
         #userInput {
             background: transparent;
             border: none;
-            color: #0f0;
+            color: lime;
             font-family: monospace;
-            flex-grow: 1;
+            width: 80%;
             outline: none;
-            font-size: 16px;
         }
-        .cmd {
-            color: #0f0;
-            margin-bottom: 5px;
+        .command {
+            margin-bottom: 10px;
         }
         .response {
-            color: #0ff;
+            color: cyan;
             margin-bottom: 15px;
-            white-space: pre-wrap;
-        }
-        .error {
-            color: #f00;
-        }
-        .success {
-            color: #0f0;
-            font-weight: bold;
         }
         .blink {
             animation: blink 1s infinite;
@@ -55,115 +41,61 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-        .loading {
-            display: inline-block;
-            width: 0;
-            overflow: hidden;
-            border-right: 2px solid #0f0;
-            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
-        }
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #0f0 }
-        }
     </style>
 </head>
 <body>
-    <h1>🚀 CYBER HACK SIMULATOR (FOR ENTERTAINMENT ONLY) 🚀</h1>
-    <p><em>This is a joke. It does NOT perform real hacking.</em></p>
-
-    <div id="terminal"></div>
+    <h1>⚠️ FAKE HACKING SIMULATOR (FOR FUN) ⚠️</h1>
+    <p>This is a joke app. It does NOT hack anything.</p>
+    <div id="hackTerminal"></div>
     <div id="inputLine">
-        <span>root@darknet:~# </span>
+        <span>root@hackermode:~# </span>
         <input type="text" id="userInput" autofocus />
     </div>
 
     <script>
-        const terminal = document.getElementById('terminal');
+        const terminal = document.getElementById('hackTerminal');
         const userInput = document.getElementById('userInput');
-
-        // Dramatic fake hacking responses
+        
+        // Fake hacking responses
         const commands = {
-            "help": "COMMANDS:\n- track_ip [target]\n- brute_force\n- decrypt_files\n- bypass_firewall\n- launch_missiles (just kidding)\n- exit",
-            
-            "track_ip": () => {
-                const fakeIP = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
-                return `[+] Tracking target...\n[+] Located IP: ${fakeIP}\n[+] Approximate location: Unknown (Fake Data)`;
-            },
-            
-            "brute_force": () => {
-                addResponse("[!] Bruteforcing password...");
-                setTimeout(() => {
-                    addResponse(`[!] Password cracked: '${Math.random().toString(36).slice(2)}' (FAKE)`);
-                }, 2000);
-                return "[*] Starting brute force attack... (This is simulated)";
-            },
-            
-            "decrypt_files": () => {
-                addResponse("[*] Analyzing encrypted files...");
-                setTimeout(() => {
-                    addResponse("[*] Decryption key found: 'TOP_SECRET' (FAKE)");
-                }, 1500);
-                return "[!] Running decryption algorithm...";
-            },
-            
-            "bypass_firewall": () => {
-                addResponse("[!] Detecting firewall...");
-                setTimeout(() => {
-                    addResponse("[+] Firewall bypassed! (Just kidding)");
-                }, 3000);
-                return "[*] Attempting to bypass security...";
-            },
-            
-            "launch_missiles": () => {
-                return "[🚀] ERROR: Nice try, movie villain.";
-            },
-            
-            "exit": "Shutting down fake hacking session..."
+            "help": "Available commands: scan, exploit, decrypt, brute_force, exit",
+            "scan": "[+] Scanning target...\n[+] Found vulnerable ports: 21, 80, 443",
+            "exploit": "[!] Exploiting vulnerability...\n[!] Access granted (fake)!",
+            "decrypt": "[*] Running decryption...\n[*] Password: 'password123' (fake)",
+            "brute_force": "[!] Bruteforcing...\n[!] Success! (This is simulated)",
+            "exit": "Closing fake hacking session..."
         };
 
-        // Initial fake system boot-up
-        setTimeout(() => addResponse("Initializing DarkNet Terminal..."), 500);
-        setTimeout(() => addResponse("Bypassing fake firewalls..."), 1200);
-        setTimeout(() => addResponse("Connected to **SIMULATED** network"), 2000);
-        setTimeout(() => addResponse("Type 'help' for commands"), 2500);
+        // Add a fake initial message
+        addResponse("Initializing fake hacking terminal...");
+        addResponse("Type 'help' for commands.");
 
-        // Handle user input
-        userInput.addEventListener('keypress', (e) => {
+        userInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                const cmd = userInput.value.trim();
+                const command = userInput.value.trim();
                 userInput.value = '';
                 
-                addCommand(cmd); // Show the command entered
+                addCommand(command);
                 
-                if (cmd in commands) {
-                    if (typeof commands[cmd] === 'function') {
-                        addResponse(commands[cmd]());
-                    } else {
-                        addResponse(commands[cmd]);
-                    }
+                if (command in commands) {
+                    addResponse(commands[command]);
                 } else {
-                    addResponse(`[ERROR] Command not found: "${cmd}"`, 'error');
+                    addResponse(`[ERROR] Unknown command: ${command}`);
                 }
             }
         });
 
-        // Helper functions
         function addCommand(cmd) {
             const div = document.createElement('div');
-            div.className = 'cmd';
+            div.className = 'command';
             div.textContent = `> ${cmd}`;
             terminal.appendChild(div);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function addResponse(res, type = 'response') {
+        function addResponse(res) {
             const div = document.createElement('div');
-            div.className = type;
+            div.className = 'response';
             div.textContent = res;
             terminal.appendChild(div);
             terminal.scrollTop = terminal.scrollHeight;
